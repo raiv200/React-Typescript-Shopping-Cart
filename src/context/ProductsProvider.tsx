@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext } from "react";
 
 export type ProductType = {
   id: string;
@@ -6,25 +6,25 @@ export type ProductType = {
   price: number;
 };
 
-const initialState: ProductType[] = [];
+// const initialState: ProductType[] = [];
 
-// const initialState : ProductType[] = [
-//     {
-//         "id":"item1",
-//         "name":"Widget",
-//         "price":9.99
-//     },
-//     {
-//         "id":"item2",
-//         "name":"Premium Widget",
-//         "price":19.99
-//     },
-//     {
-//         "id":"item3",
-//         "name":"Deluxe Widget",
-//         "price":29.99
-//     }
-// ]
+const initialState: ProductType[] = [
+  {
+    id: "item0001",
+    name: "Widget",
+    price: 9.99,
+  },
+  {
+    id: "item0002",
+    name: "Premium Widget",
+    price: 19.99,
+  },
+  {
+    id: "item0003",
+    name: "Deluxe Widget",
+    price: 29.99,
+  },
+];
 
 export type UseProductsContextType = { products: ProductType[] };
 
@@ -42,23 +42,23 @@ export const ProductsProvider = ({
 }: ChildrenType): React.ReactElement => {
   const [products, setProducts] = useState<ProductType[]>(initialState);
 
-  useEffect(() => {
-    const fetchProducts = async (): Promise<ProductType[]> => {
-      const data = await fetch("http://localhost:3500/products")
-        .then((res) => res.json())
-        .catch((err) => {
-          if(err instanceof Error){
-            console.log(err.message);
-          }
-        });
+  // useEffect(() => {
+  //   const fetchProducts = async (): Promise<ProductType[]> => {
+  //     const data = await fetch("http://localhost:3500/products")
+  //       .then((res) => res.json())
+  //       .catch((err) => {
+  //         if(err instanceof Error){
+  //           console.log(err.message);
+  //         }
+  //       });
 
-      return data;
-    };
+  //     return data;
+  //   };
 
-    fetchProducts().then( products => setProducts(products))
+  //   fetchProducts().then( products => setProducts(products))
 
-    return () => {};
-  }, []);
+  //   return () => {};
+  // }, []);
 
   return (
     <ProductsContext.Provider value={{ products }}>
